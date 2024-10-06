@@ -1,0 +1,30 @@
+Dynamic Forms in React using Zod & React Hook Form (BEST Strategy!)
+(https://www.youtube.com/watch?v=HSr7pMSjC1I)
+
+https://github.com/codegenixdev/dynamic-form
+https://github.com/Annie-Huang/react-hook-form-with-zod-dynamic-form
+
+-----------------------------------------------------------------------------------
+
+PS C:\react> npm create vite@latest react-hook-form-with-zod-dynamic-form
+Need to install the following packages:
+create-vite@5.5.3
+Ok to proceed? (y) y
+
+
+> npx
+> create-vite react-hook-form-with-zod-dynamic-form
+
+√ Select a framework: » React
+√ Select a variant: » TypeScript + SWC
+
+Scaffolding project in C:\react\react-hook-form-with-zod-dynamic-form...
+
+Done. Now run:
+
+  cd react-hook-form-with-zod-dynamic-form
+  npm install
+  npm run dev
+
+----------------------------------------------------------------------
+
