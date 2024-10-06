@@ -29,3 +29,4 @@ Done. Now run:
 ----------------------------------------------------------------------
 
 PS C:\react\react-hook-form-with-zod-dynamic-form> npm install
+PS C:\react\react-hook-form-with-zod-dynamic-form> npm install @emotion/react @emotion/styled @mui/icons-material @mui/material react-hook-form zod @hookform/resolvers
