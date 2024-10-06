@@ -28,3 +28,4 @@ Done. Now run:
 
 ----------------------------------------------------------------------
 
+PS C:\react\react-hook-form-with-zod-dynamic-form> npm install
