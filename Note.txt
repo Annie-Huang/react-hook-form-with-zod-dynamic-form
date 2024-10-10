@@ -5,7 +5,7 @@ https://github.com/codegenixdev/dynamic-form
 https://github.com/Annie-Huang/react-hook-form-with-zod-dynamic-form
 
 https://mui.com/material-ui/api/css-baseline/
------------------------------------------------------------------------------------
+==============================================================================================
 
 PS C:\react> npm create vite@latest react-hook-form-with-zod-dynamic-form
 Need to install the following packages:
@@ -27,7 +27,48 @@ Done. Now run:
   npm install
   npm run dev
 
-----------------------------------------------------------------------
+==============================================================================================
 
 PS C:\react\react-hook-form-with-zod-dynamic-form> npm install
 PS C:\react\react-hook-form-with-zod-dynamic-form> npm install @emotion/react @emotion/styled @mui/icons-material @mui/material react-hook-form zod @hookform/resolvers
+
+
+==============================================================================================
+
+discriminatedUnion works like type union in typescript:
+
+Type union:
+------------------------
+type Laptop = {
+  variant: 'laptop';
+  cpu: string;
+};
+type Phone = {
+  variant: 'laptop';
+  camera: string;
+}
+type Product = { price: number } & (Laptop | Phone);
+
+const laptop: Product = {
+  variant: 'laptop',
+  cpu: 'intel',
+  price: 100,
+}
+const phone: Product = {
+  variant: 'phone',
+  camera: 'any',
+  price: 100,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
