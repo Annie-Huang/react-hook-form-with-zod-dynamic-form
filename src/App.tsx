@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from './Container.tsx';
-import { Checkbox, FormControlLabel, TextField } from '@mui/material';
-import { useForm, useWatch } from 'react-hook-form';
+import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { formDefaultValues, formSchema, FormSchema } from './formSchema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -10,6 +10,7 @@ export const App = () => {
     register,
     formState: { errors },
     control,
+    handleSubmit,
   } = useForm<FormSchema>({
     mode: 'all',
     resolver: zodResolver(formSchema),
@@ -17,6 +18,10 @@ export const App = () => {
   });
 
   const hasWorkExperience = useWatch({ control, name: 'hasWorkExperience' });
+
+  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+    alert(JSON.stringify(data, null, 2));
+  };
 
   console.log('errors=', errors);
 
@@ -42,6 +47,10 @@ export const App = () => {
           error={!!errors.companyName}
         />
       )}
+
+      <Button variant='contained' onClick={handleSubmit(onSubmit)}>
+        Submit
+      </Button>
     </Container>
   );
 };
