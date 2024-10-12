@@ -26,11 +26,26 @@ const languageKnowledgeSchema = z.discriminatedUnion('knowsOtherLanguages', [
   z.object({ knowsOtherLanguages: z.literal(false) }),
 ]);
 
+const educationSchema = z.discriminatedUnion('educationLevel', [
+  z.object({
+    educationLevel: z.literal('noFormalEducation'),
+  }),
+  z.object({
+    educationLevel: z.literal('highSchoolDiploma'),
+    schoolName: z.string().min(1),
+  }),
+  z.object({
+    educationLevel: z.literal('bachelorsDegree'),
+    universityName: z.string().min(1),
+  }),
+]);
+
 const formSchema = z
   .object({
     fullName: z.string().min(1),
   })
   .and(workExperienceSchema)
+  .and(languageKnowledgeSchema)
   .and(languageKnowledgeSchema);
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -39,6 +54,7 @@ const formDefaultValues: FormSchema = {
   fullName: '',
   hasWorkExperience: false,
   knowsOtherLanguages: false,
+  educationLevel: 'noFormalEducation',
 };
 
 export { formDefaultValues, formSchema, type FormSchema };
