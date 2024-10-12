@@ -1,6 +1,12 @@
 import React from 'react';
 import { Container } from './Container.tsx';
-import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  TextField,
+} from '@mui/material';
 import {
   FieldErrors,
   SubmitHandler,
@@ -10,6 +16,7 @@ import {
 } from 'react-hook-form';
 import { formDefaultValues, formSchema, FormSchema } from './formSchema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AddCircleRounded, DeleteForeverRounded } from '@mui/icons-material';
 
 export const App = () => {
   const {
@@ -98,8 +105,22 @@ export const App = () => {
                 helperText={fullErrors.languages?.[index]?.name?.message}
                 error={!!fullErrors.languages?.[index]?.name?.message}
               />
+              <IconButton
+                disabled={fields.length === 1}
+                onClick={() => remove(index)}
+                color='error'
+              >
+                <DeleteForeverRounded />
+              </IconButton>
             </div>
           ))}
+          <IconButton
+            sx={{ width: 'fit-content' }}
+            onClick={() => append({ name: '' })}
+            color='success'
+          >
+            <AddCircleRounded />
+          </IconButton>
         </>
       )}
 
