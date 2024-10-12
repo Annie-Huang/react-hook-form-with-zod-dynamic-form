@@ -46,7 +46,7 @@ const formSchema = z
   })
   .and(workExperienceSchema)
   .and(languageKnowledgeSchema)
-  .and(languageKnowledgeSchema);
+  .and(educationSchema);
 
 type FormSchema = z.infer<typeof formSchema>;
 

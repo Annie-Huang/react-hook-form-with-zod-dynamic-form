@@ -44,16 +44,26 @@ export const App = () => {
   // const fullErrors: FieldErrors<
   //   Extract<FormSchema, { hasWorkExperience: true }>
   // > = errors;
+  // const fullErrors: FieldErrors<
+  //   Extract<FormSchema, { hasWorkExperience: true }> &
+  //     Extract<FormSchema, { knowsOtherLanguages: true }>
+  // > = errors;
+  // Each of the following need to wrapped into FieldErrors.
   const fullErrors: FieldErrors<
-    Extract<FormSchema, { hasWorkExperience: true }> &
-      Extract<FormSchema, { knowsOtherLanguages: true }>
-  > = errors;
+    Extract<FormSchema, { hasWorkExperience: true }>
+  > &
+    FieldErrors<Extract<FormSchema, { knowsOtherLanguages: true }>> &
+    FieldErrors<Extract<FormSchema, { educationLevel: 'noFormalEducation' }>> &
+    FieldErrors<Extract<FormSchema, { educationLevel: 'highSchoolDiploma' }>> &
+    FieldErrors<Extract<FormSchema, { educationLevel: 'bachelorsDegree' }>> =
+    errors;
 
   const hasWorkExperience = useWatch({ control, name: 'hasWorkExperience' });
   const knowsOtherLanguages = useWatch({
     control,
     name: 'knowsOtherLanguages',
   });
+  const educationLevel = useWatch({ control, name: 'educationLevel' });
 
   useEffect(() => {
     if (knowsOtherLanguages) {
@@ -163,6 +173,23 @@ export const App = () => {
           )}
         />
       </FormControl>
+
+      {educationLevel === 'highSchoolDiploma' && (
+        <TextField
+          {...register('schoolName')}
+          label='High School Name'
+          helperText={fullErrors.schoolName?.message}
+          error={!!fullErrors.schoolName?.message}
+        />
+      )}
+      {educationLevel === 'bachelorsDegree' && (
+        <TextField
+          {...register('universityName')}
+          label='University Name'
+          helperText={fullErrors.universityName?.message}
+          error={!!fullErrors.universityName?.message}
+        />
+      )}
 
       <Button variant='contained' onClick={handleSubmit(onSubmit)}>
         Submit
