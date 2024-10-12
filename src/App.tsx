@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from './Container.tsx';
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
-import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import { FieldErrors, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { formDefaultValues, formSchema, FormSchema } from './formSchema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -17,6 +17,11 @@ export const App = () => {
     defaultValues: formDefaultValues,
   });
 
+  // const fullErrors: FieldErrors<FormSchema> = errors;
+  const fullErrors: FieldErrors<
+    Extract<FormSchema, { hasWorkExperience: true }>
+  > = errors;
+
   const hasWorkExperience = useWatch({ control, name: 'hasWorkExperience' });
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
@@ -30,8 +35,10 @@ export const App = () => {
       <TextField
         {...register('fullName')}
         label='Full Name'
-        helperText={errors.fullName?.message}
-        error={!!errors.fullName}
+        // helperText={errors.fullName?.message}
+        // error={!!errors.fullName}
+        helperText={fullErrors.fullName?.message}
+        error={!!fullErrors.fullName}
       />
       <FormControlLabel
         {...register('hasWorkExperience')}
@@ -43,8 +50,12 @@ export const App = () => {
         <TextField
           {...register('companyName')}
           label='Company Name'
-          helperText={errors.companyName?.message}
-          error={!!errors.companyName}
+          // Will get type error for discriminatedUnion
+          // helperText={errors.companyName?.message}
+          // error={!!errors.companyName}
+
+          helperText={fullErrors.companyName?.message}
+          error={!!fullErrors.companyName}
         />
       )}
 
