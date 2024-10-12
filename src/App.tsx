@@ -3,11 +3,16 @@ import { Container } from './Container.tsx';
 import {
   Button,
   Checkbox,
+  FormControl,
   FormControlLabel,
+  FormLabel,
   IconButton,
+  Radio,
+  RadioGroup,
   TextField,
 } from '@mui/material';
 import {
+  Controller,
   FieldErrors,
   SubmitHandler,
   useFieldArray,
@@ -129,6 +134,35 @@ export const App = () => {
           </IconButton>
         </>
       )}
+
+      {/*---------------------------------------------------------*/}
+
+      <FormControl>
+        <FormLabel>Education Level</FormLabel>
+        <Controller
+          control={control}
+          name='educationLevel'
+          render={({ field }) => (
+            <RadioGroup {...field}>
+              <FormControlLabel
+                value='noFormalEducation'
+                control={<Radio />}
+                label='No Formal Education'
+              />
+              <FormControlLabel
+                value='highSchoolDiploma'
+                control={<Radio />}
+                label='High School Diploma'
+              />
+              <FormControlLabel
+                value='bachelorsDegree'
+                control={<Radio />}
+                label='Bachelors Degree'
+              />
+            </RadioGroup>
+          )}
+        />
+      </FormControl>
 
       <Button variant='contained' onClick={handleSubmit(onSubmit)}>
         Submit
