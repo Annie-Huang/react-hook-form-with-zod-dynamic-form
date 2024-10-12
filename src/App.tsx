@@ -23,6 +23,10 @@ export const App = () => {
   > = errors;
 
   const hasWorkExperience = useWatch({ control, name: 'hasWorkExperience' });
+  const knowsOtherLanguages = useWatch({
+    control,
+    name: 'knowsOtherLanguages',
+  });
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     alert(JSON.stringify(data, null, 2));
@@ -58,6 +62,16 @@ export const App = () => {
           error={!!fullErrors.companyName}
         />
       )}
+
+      {/*---------------------------------------------------------*/}
+
+      <FormControlLabel
+        {...register('knowsOtherLanguages')}
+        label='Know Other Languages?'
+        control={<Checkbox />}
+      />
+
+      {knowsOtherLanguages && <>array fields here</>}
 
       <Button variant='contained' onClick={handleSubmit(onSubmit)}>
         Submit
