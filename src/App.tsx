@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from './Container.tsx';
 import {
   Button,
@@ -49,6 +49,12 @@ export const App = () => {
     control,
     name: 'knowsOtherLanguages',
   });
+
+  useEffect(() => {
+    if (knowsOtherLanguages) {
+      replace([{ name: '' }]);
+    }
+  }, [knowsOtherLanguages, replace]);
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     alert(JSON.stringify(data, null, 2));
