@@ -1,7 +1,13 @@
 import React from 'react';
 import { Container } from './Container.tsx';
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
-import { FieldErrors, SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import {
+  FieldErrors,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+  useWatch,
+} from 'react-hook-form';
 import { formDefaultValues, formSchema, FormSchema } from './formSchema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -17,9 +23,18 @@ export const App = () => {
     defaultValues: formDefaultValues,
   });
 
+  const { fields, replace, append, remove } = useFieldArray({
+    control,
+    name: 'languages',
+  });
+
   // const fullErrors: FieldErrors<FormSchema> = errors;
+  // const fullErrors: FieldErrors<
+  //   Extract<FormSchema, { hasWorkExperience: true }>
+  // > = errors;
   const fullErrors: FieldErrors<
-    Extract<FormSchema, { hasWorkExperience: true }>
+    Extract<FormSchema, { hasWorkExperience: true }> &
+      Extract<FormSchema, { knowsOtherLanguages: true }>
   > = errors;
 
   const hasWorkExperience = useWatch({ control, name: 'hasWorkExperience' });
@@ -71,7 +86,22 @@ export const App = () => {
         control={<Checkbox />}
       />
 
-      {knowsOtherLanguages && <>array fields here</>}
+      {/*{knowsOtherLanguages && <>array fields here</>}*/}
+      {knowsOtherLanguages && (
+        <>
+          {fields.map((field, index) => (
+            <div key={field.id}>
+              <TextField
+                sx={{ width: '100%' }}
+                {...register(`languages.${index}.name`)}
+                label='Language Name'
+                helperText={fullErrors.languages?.[index]?.name?.message}
+                error={!!fullErrors.languages?.[index]?.name?.message}
+              />
+            </div>
+          ))}
+        </>
+      )}
 
       <Button variant='contained' onClick={handleSubmit(onSubmit)}>
         Submit
